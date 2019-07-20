@@ -32,6 +32,12 @@ public class Snake {
         }
     }
 
+    public void drawDeadSnake(GraphicsContext graphicsContext) {
+        for (var body : snake) {
+            graphicsContext.strokeRect(body.getX_COORD(), body.getY_COORD(), WIDTH, HEIGHT);
+        }
+    }
+
     public void moveSnake() throws SnakeDead {
         Direction direction = this.currentDirection;
         if (direction == UP) {

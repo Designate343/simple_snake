@@ -23,7 +23,7 @@ public class GameLoop implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        graphicsContext.clearRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
+        clearBoard();
 
         snake.drawSnake(graphicsContext);
         fruit.draw(graphicsContext);
@@ -31,6 +31,10 @@ public class GameLoop implements EventHandler<ActionEvent> {
         try {
             snake.moveSnake();
         } catch (Snake.SnakeDead snakeDead) {
+            clearBoard();
+
+            snake.drawDeadSnake(graphicsContext);
+
             graphicsContext.fillText("GAME OVER", (BOARD_WIDTH / 2) - 50, BOARD_HEIGHT / 2);
             graphicsContext.fillText("YOU ATE " + fruitEaten + " FRUITS",
                     (BOARD_WIDTH / 2) - 50, (BOARD_HEIGHT / 2) + CELL_SIZE);
@@ -41,6 +45,10 @@ public class GameLoop implements EventHandler<ActionEvent> {
             fruitEaten++;
             fruit = Fruit.spawn(snake);
         }
+    }
+
+    private void clearBoard() {
+        graphicsContext.clearRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
     }
 
 }
