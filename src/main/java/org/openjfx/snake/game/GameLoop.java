@@ -6,13 +6,16 @@ import javafx.scene.canvas.GraphicsContext;
 import org.openjfx.snake.objects.Fruit;
 import org.openjfx.snake.objects.Snake;
 
-public class MainLoop implements EventHandler<ActionEvent> {
+import static org.openjfx.MainApp.*;
+
+public class GameLoop implements EventHandler<ActionEvent> {
 
     private GraphicsContext graphicsContext;
     private Snake snake;
     private Fruit fruit;
+    private int fruitEaten = 0;
 
-    public MainLoop(GraphicsContext graphicsContext, Snake snake) {
+    public GameLoop(GraphicsContext graphicsContext, Snake snake) {
         this.graphicsContext = graphicsContext;
         this.snake = snake;
         this.fruit = Fruit.spawn(this.snake);
@@ -20,7 +23,7 @@ public class MainLoop implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        graphicsContext.clearRect(0,0,480,360);
+        graphicsContext.clearRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
 
         snake.drawSnake(graphicsContext);
         fruit.draw(graphicsContext);
@@ -28,10 +31,14 @@ public class MainLoop implements EventHandler<ActionEvent> {
         try {
             snake.moveSnake();
         } catch (Snake.SnakeDead snakeDead) {
+            graphicsContext.fillText("GAME OVER", (BOARD_WIDTH / 2) - 50, BOARD_HEIGHT / 2);
+            graphicsContext.fillText("YOU ATE " + fruitEaten + " FRUITS",
+                    (BOARD_WIDTH / 2) - 50, (BOARD_HEIGHT / 2) + CELL_SIZE);
             return;
         }
 
         if (snake.eats(fruit)) {
+            fruitEaten++;
             fruit = Fruit.spawn(snake);
         }
     }

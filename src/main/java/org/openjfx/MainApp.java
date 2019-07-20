@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.openjfx.snake.game.HandleInput;
-import org.openjfx.snake.game.MainLoop;
+import org.openjfx.snake.game.GameLoop;
 import org.openjfx.snake.objects.Snake;
 
 
@@ -24,6 +24,7 @@ public class MainApp extends Application {
     public static final int BOARD_WIDTH = 480;
     public static final int BOARD_HEIGHT = 360;
     public static final int CELL_SIZE = 20;
+    private static final Duration ANIMATION_SPEED = Duration.millis(50);
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -38,12 +39,12 @@ public class MainApp extends Application {
 
         final Snake snake = new Snake();
 
-        MainLoop mainLoop = new MainLoop(gc, snake);
+        GameLoop gameLoop = new GameLoop(gc, snake);
 
         scene.setOnKeyPressed(new HandleInput(snake));
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.05), mainLoop)
+                new KeyFrame(ANIMATION_SPEED, gameLoop)
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
