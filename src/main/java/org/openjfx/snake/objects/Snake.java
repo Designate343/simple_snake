@@ -19,9 +19,9 @@ public class Snake {
 
     public Snake() {
         Deque<SnakeBody> snake = new ArrayDeque<>(3);
-        snake.push(new SnakeBody(70, 70));
-        snake.push(new SnakeBody(90, 70));
-        snake.push(new SnakeBody(110, 70));
+        snake.push(new SnakeBody(60, 60));
+        snake.push(new SnakeBody(80, 60));
+        snake.push(new SnakeBody(100, 60));
 
         this.snake = snake;
     }

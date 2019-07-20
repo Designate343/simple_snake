@@ -22,10 +22,6 @@ public class MainLoop implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         graphicsContext.clearRect(0,0,480,360);
 
-        if (snake.isEmpty()) {
-            return;
-        }
-
         snake.drawSnake(graphicsContext);
         fruit.draw(graphicsContext);
 
@@ -35,8 +31,8 @@ public class MainLoop implements EventHandler<ActionEvent> {
             return;
         }
 
-        if (snake.eats(this.fruit)) {
-            this.fruit = Fruit.spawn(snake);
+        if (snake.eats(fruit)) {
+            fruit = Fruit.spawn(snake);
         }
     }
 
