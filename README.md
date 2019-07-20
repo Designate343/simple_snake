@@ -1,4 +1,4 @@
-# simple_snake
+# simple_MVP_snake
 Snake written in JavaFX
 
 Experimenting with JavaFX by making a simple game - pretty good overall. It would be sad if this project died.
