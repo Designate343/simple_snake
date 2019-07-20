@@ -31,11 +31,11 @@ public class Fruit {
         int randX = ThreadLocalRandom.current().nextInt(0, BOARD_WIDTH / CELL_SIZE) * CELL_SIZE;
         int randY = ThreadLocalRandom.current().nextInt(0, BOARD_HEIGHT / CELL_SIZE) * CELL_SIZE;
 
-        boolean collides = snake.collides(randX, randY);
+        boolean collides = snake.collidesWithObject(randX, randY);
         while (collides) {
             randX = ThreadLocalRandom.current().nextInt(0, BOARD_WIDTH / CELL_SIZE) * CELL_SIZE;
             randY = ThreadLocalRandom.current().nextInt(0, BOARD_HEIGHT / CELL_SIZE) * CELL_SIZE;
-            collides = snake.collides(randX, randY);
+            collides = snake.collidesWithObject(randX, randY);
         }
 
         return new Fruit(randX, randY);

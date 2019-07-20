@@ -29,7 +29,11 @@ public class MainLoop implements EventHandler<ActionEvent> {
         snake.drawSnake(graphicsContext);
         fruit.draw(graphicsContext);
 
-        snake.moveSnake();
+        try {
+            snake.moveSnake();
+        } catch (Snake.SnakeDead snakeDead) {
+            return;
+        }
 
         if (snake.eats(this.fruit)) {
             this.fruit = Fruit.spawn(snake);

@@ -32,7 +32,7 @@ public class Snake {
         }
     }
 
-    public void moveSnake() {
+    public void moveSnake() throws SnakeDead {
         Direction direction = this.currentDirection;
         if (direction == UP) {
             SnakeBody prevHead = getOldHead();
@@ -58,7 +58,7 @@ public class Snake {
 
     }
 
-    public boolean collides(int x, int y) {
+    public boolean collidesWithObject(int x, int y) {
         for (var snakeSegment : snake) {
             if (x == snakeSegment.getX_COORD() && y == snakeSegment.getY_COORD()) {
                 return true;
@@ -76,11 +76,13 @@ public class Snake {
         return eats;
     }
 
-    private void setNewHead(int x, int y) {
+    private void setNewHead(int x, int y) throws SnakeDead {
         var newHead = new SnakeBody(x, y);
+
         if (checkForCollision(newHead)) {
-            throw new RuntimeException();
+            throw new SnakeDead();
         }
+
         snake.push(newHead);
     }
 
@@ -118,5 +120,11 @@ public class Snake {
 
     public Direction getCurrentDirection() {
         return currentDirection;
+    }
+
+    public class SnakeDead extends Exception {
+        public SnakeDead() {
+            super();
+        }
     }
 }
